@@ -1,0 +1,74 @@
+{#
+  Title: Banner
+  Description: Banner block
+  Category: MPC-blocks
+  Icon: money
+  Keywords: banner
+  Mode: edit
+  Align: left
+  PostTypes: page post
+  SupportsAlign: left right
+  SupportsMode: true
+  SupportsMultiple: true
+#}
+<section
+	class="mpc-main-banner relative section-spacing {% if fn('is_front_page') %}md:h-700 lg:h-900{% else %}md:h-650 lg:h-750{% endif %} w-full flex flex-col px-10 {{ block.className }}"
+	{# Background settings #} {% if fields.banner.background %}
+	style="background-image: url('{{fields.banner.background}}'); background-size: cover; background-position: {{fields.banner.background_position}}; background-repeat: no-repeat;"
+	{% else %} style="background-color:{{fields.banner.color}};" {% endif %}>
+	{% if fields.options.overlay %}
+	{% if fields.options.overlay_color %}
+	<div class="overlay"
+		style="background-color:{{fields.options.overlay_color}}; opacity:{{fields.options.overlay_opacity}}; background-blend-mode: multiply;">
+	</div>
+	{% endif %}
+	{% if fields.options.overlay_gradient %}
+	<div class="overlay"
+		style="background:linear-gradient({{ fields.options.gradient_degree }}deg, {{ fields.options.color_1 }}, {{ fields.options.color_2 }}); opacity:{{fields.options.overlay_opacity}}; background-blend-mode: multiply;">
+	</div>
+	{% endif %}
+	{% endif %}
+	<article
+		class="mpc-banner-content md:section-spacing container mx-auto w-full md:w-10/12 lg:w-10/12 xl:w-10/12 h-full flex flex-col justify-center items-center px-1 relative z-5 {% if fields.banner.text_color %}text-light{% else %}text-dark{% endif %} md:mt-auto text-center">
+		<div class="w-full text-center">
+			{% if fields.banner.tagline %}
+			<h5 class="text-2xl font-light uppercase mb-2">{{fields.banner.tagline}}</h5>
+			{% endif %}
+			{# Main title #}
+			{% if fields.banner.title %}
+			<h1 class="xl:w-10/12 text-4xl md:text-5xl lg:text-6xl font-header font-normal mb-6 mx-auto">
+				{{fields.banner.title }}</h1>
+			{% endif %}
+			{# Subtitle #}
+			{% if fields.banner.description %}
+			<p class="text-xl leading-none font-normal mb-8">{{fields.banner.description}}</p>
+			{% endif %}
+		</div>
+		{# Button wrap #}
+		{% if fields.banner.button %}
+		<div class="flex flex-col lg:flex-row flex-wrap">
+			{% for button in fields.banner.button %}
+			<a href="{{button.btn_link}}"
+				class="btn {{ button.button_style}} text-center md:text-left font-normal mb-6 {% if not loop.last %}lg:mr-4{% endif %} {% if button.ghost_version %}_light{% endif %}"
+				data-aos="fade-up" data-aos-offset="150" data-aos-delay="{{loop.index}}50"
+				data-aos-duration="2*{{loop.index}}50" data-aos-once="true">
+				<span class="flex flex-row items-center">
+				{% if button.icon.url %}
+					<img class='injectable w-5 h-5 mr-2 fill-inherit' src="{{button.icon.url}}"
+						title="{{ button.icon.title }}" />
+						{% endif %}
+					{{ button.btn_label }}
+				</span>
+			</a>
+			{% endfor %}
+		</div>
+		{% endif %}
+		{# Form #}
+		{% if fields.banner.form  %}
+		<form
+			class="baner-form{% if fields.banner.form_style == 'ghost' %}-ghost{% elseif fields.banner.form_style == 'underline'%}-underline{% endif %} md:w-8/12 lg:w-6/12 mt-2">
+			{{fn('do_shortcode', fields.banner.form|striptags)}}
+		</form>
+		{% endif %}
+	</article>
+</section>

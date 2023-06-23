@@ -1,0 +1,29 @@
+{% include 'html-header.twig' %}
+
+<body class="{{body_class}} w-full">
+    <!-- skip to content link for accessibility -->
+    <a class="sr-only" href="/#main">skip to content link</a>
+    <header>
+    {% block header %}
+    {% include 'partial/topbar.twig' %}
+    {% include 'partial/header.twig' %}
+    {% endblock %}
+    </header>
+    {# HERE ENDS HEADER #}
+    <main id="main" class="body-wrapper fade-out">
+        {# HERE GOES THE MAIN CONTENT #}
+        {% block content %}
+        {% endblock %}
+        {# HERE ENDS THE MAIN CONTENT #}
+        {% block footer %}
+        {% include 'partial/footer.twig' %}
+        {% endblock %}
+        {# HERE ENDS FOOTER #}
+        {% block scripts %}
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js" integrity="sha512-3Ei7OPFo83kw3cPbDLeLhn/YF8tZB7Vs8sfli0B/KEekureL5eosDeshYFICCvt4K8i0yUil/lK3cSiic2Wjkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {{ function('wp_footer') }}
+        {% endblock %}
+    </main>
+</body>
+</html>
