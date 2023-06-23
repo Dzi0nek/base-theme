@@ -1,0 +1,31 @@
+<div class="menu-wrap w-auto mr-auto relative">
+    {# menu container #}
+    {% if menu %}
+    <nav class="nav mx-auto p-0" aria-label="main-navigation">
+        <ul class="flex flex-row items-center">
+            {% for item in menu.items %}
+            <li class="top-menu-link {{ item.classes | join(' ') }}">
+                {% if item.children %}
+                <a class="nav-link uppercase letter-spacing-1" href="{{ item.link }}"
+                    target="{{ item.target }}"><span>{{ item.title }}</span><img
+                        src="{{ site.theme.link }}/images/icons/angle-down.svg"
+                        class="injectable w-4 h-4 fill-primary ml-2 inline-block" title="Arrow Down"
+                        alt="Arrow Down"></a>
+                <ul class='drop-menu'>
+                    {% for child in item.children %}
+                    <li class="dropdown-link pb-1">
+                        <a class="nav-link uppercase letter-spacing-1" target="{{ child.target }}"
+                            href="{{ child.link }}">{{ child.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <a class="nav-link uppercase letter-spacing-1" href="{{ item.link }}"
+                    target="{{ item.target }}">{{ item.title }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>

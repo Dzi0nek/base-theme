@@ -1,0 +1,37 @@
+{# --------- VERSION 1 ------------- #}
+<section id="logoAndNav" class="v1 relative bg-light">
+	<div class="container mx-auto">
+		<!-- Nav -->
+		<div class="flex flex-row items-center py-4 z-20">
+			<!-- Logo -->
+			<div class="logo-wrapper mr-auto">
+				<a href="{{ site.link }}">
+					{% include 'partial/logo.twig' %}
+				</a>
+			</div>
+			<!-- End Logo -->
+			<div class="flex flex-row lg:flex-col z-10 lg:pr-0">
+
+				<div class="flex flex-row lg:flex-col items-center z-10 mr-auto lg:pr-0">
+					<div class="mobile-menu v1 inline-block lg:hidden">
+						{% include 'partial/mobile-menu.twig'%}
+					</div>
+					<!-- Navigation -->
+					<div class="desktop-menu v1 text-secondary hidden lg:inline-block ">
+						{% include 'partial/menu.twig'%}
+					</div>
+					<!-- End Navigation -->
+				</div>
+				<!-- End Navigation -->
+			</div>
+			{% if global.header.button %}
+			<a href="{{global.header.button.url}}" class="btn mx-auto xs:mr-0 {{global.header.button_version}}"><img
+					class="injectable inline-block w-10 h-6 object-contain fill-inherit"
+					src="{{ global.header.mobile_icon.url}}" title="{{ global.header.mobile_icon.title }}"
+					alt="{{ globalheader.mobile_icon.alt }}"><span
+					class="hidden ml-2 md:inline-block">{{global.header.button.title }}</span></a>
+			{% endif %}
+		</div>
+		<!-- End Nav -->
+	</div>
+</section>

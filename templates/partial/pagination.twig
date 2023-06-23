@@ -1,0 +1,31 @@
+{% if posts.pagination.pages is not empty %}
+<div class="pagination pt-2">
+    {% if pagination.prev %}
+    <a class="prev_page" href="{{ pagination.prev.link }}">Wstecz</a>
+    {% else %}
+    <span class="disabled prev_page">
+        Wstecz
+    </span>
+    {% endif %}
+    {% for page in pagination.pages %}
+    {% if page.link %}
+    <a href="{{ page.link }}" class="{{ page.class }}">{{ page.title }}</a>
+    {% else %}
+    {% if page.class == 'dots' %}
+    <span class="gap">…</span>
+    {% else %}
+    <span class="current {{ page.class }}">{{ page.title }}</span>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% if pagination.next %}
+    <a class="next_page" href="{{ pagination.next.link }}">
+        Dalej
+    </a>
+    {% else %}
+    <span class="disabled next_page">
+        Dalej
+    </span>
+    {% endif %}
+</div>
+{% endif %}

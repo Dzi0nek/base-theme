@@ -1,0 +1,10 @@
+{% extends "base.twig" %}
+
+{% block content %}
+{% set category = fn('get_the_category', post.ID) %}
+{% set cat_link = fn('get_category_link',category[0].term_id) %}
+{% set tags = fn('get_the_tags', post.ID) %}
+<div>
+	{{ post.content }}
+	</div>
+{% endblock %}
