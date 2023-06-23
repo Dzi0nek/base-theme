@@ -1,0 +1,97 @@
+{# This file demonstrates using most of the index.twig template and modifying 
+   just a small part. See `search.twig` for an example of another approach #}
+
+{% extends "index.twig" %}
+
+{% block content %}
+
+<section class="section-spacing container mx-auto grid grid-flow-row md:grid-cols-2 gap-6">
+  {% for post in posts %}
+  {% if post.post_type == "review" %}
+  <div class="mpc-review">
+    <h2 class="font-header text-2xl mb-4"><a href="{{ post.link }}">{{ post.title }}</a></h2>
+    <div class="w-[150px] stars relative mb-4">
+      <img class="" src="{{ site.theme.link }}/images/icons/stars_border.png" />
+      {% if post.stars %}
+      <figure class="absolute h-full left-0 top-0 block overflow-hidden width-{{ post.stars * 20}}">
+        <img class="max-w-[150px] object-fill absolute " src="{{ site.theme.link }}/images/icons/stars_full.png" alt="">
+        {% endif %}
+      </figure>
+    </div>
+    <article class="mb-8">{{ post.review }}</article>
+
+    <div class="flex flex-col-reverse md:flex-row md:items-center">
+      <img class="h-[100px] w-[100px] rounded-full object-cover mb-8 md:mb-0" src="{{post.thumbnail.src}}"
+        alt="{{post.thumbnail.alt}}">
+      <author class="w-full md:w-auto md:ml-8">
+        <h1>{{ post.author }}</h1>
+        <h3 class="mb-4">{{ post.position }}</h3>
+      </author>
+
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+</section>
+
+{# Showing posts archive #}
+{% if posts|length > 0 %}
+{% set link = fn('get_permalink', post.ID) %}
+{% if post_cat[0].cat_name == title %}
+<section
+  class="mpc-category-content-left w-full mx-auto {% if fields.pagepicker.light_verstion %}light-version{% endif %}">
+  <div class="container mx-auto py-[80px] flex flex-row flex-wrap">
+    {% for post in posts %}
+    {% set meta = fn('get_term_meta', cat.term_id, 'picture' ) %}
+    <div class="w-full lg:w-6/12 flex-grow text-center lg:text-left p-4">
+      <a href="{{ TimberPost(news_item.ID).link }}"><img class="h-30 rounded-lg mb-8"
+          src="{{ fn('get_the_post_thumbnail_url', post)}}" alt="{{ post.post_title }}"></a>
+      <a href="{{ TimberPost(news_item.ID).link }}">
+        <h3 class='text-3xl text-black mb-4'>{{ post.post_title }}</h3>
+      </a>
+      <div class="flex flex-col lg:flex-row mb-4">
+        <span class="text-primary">{{post.post_date|date('F d, Y')}}</span><span
+          class='mx-2 hidden lg:inline'>|</span><span class='text-black'>by MPC</span>
+      </div>
+      <p class='text-lg'>{{ post.post_excerpt }}</p>
+      <a class='btn-primary' href="{{ link }}">READ MORE</a>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% elseif posts|length == 0 and categories == 0 %}
+<div class="section px-10 py-[80px] mb-10">
+  <h2 class="text-4xl font-light mb-4">Unfortunately no match was found.... try again!</h2>
+</div>
+{% endif %}
+
+
+
+{# Tags posts #}
+{% if post_tag[0].count > 0 %}
+{% set link = fn('get_permalink', post.ID) %}
+<section class="mpc-category-content-left w-full mx-auto">
+  <div class="container mx-auto py-[80px] flex flex-row flex-wrap">
+    {% for post in posts %}
+    {% set meta = fn('get_term_meta', cat.term_id, 'image' ) %}
+    <div class="w-full lg:w-6/12 text-center lg:text-left p-4">
+      <a href="{{ TimberPost(news_item.ID).link }}"><img class="h-30 rounded-lg mb-8"
+          src="{{ fn('get_the_post_thumbnail_url', post)}}" alt="{{ post.post_title }}"></a>
+      <a href="{{ TimberPost(news_item.ID).link }}">
+        <h3 class='text-3xl text-black mb-4'>{{ post.post_title }}</h3>
+      </a>
+      <div class="flex flex-col lg:flex-row mb-4">
+        <span class="text-primary">{{post.post_date|date('F d, Y')}}</span><span
+          class='mx-2 hidden lg:inline'>|</span><span class='text-black'>by MPC</span>
+      </div>
+      <p class='text-lg'>{{ post.post_excerpt }}</p>
+      <a class='btn-primary' href="{{ link }}">READ MORE</a>
+    </div>
+
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

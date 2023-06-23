@@ -1,0 +1,85 @@
+{#
+  Title: Text With Image
+  Description: Text With Image on The Side
+  Category: MPC-blocks
+  Icon: table-col-before
+  Keywords: photo aside
+  Mode: edit
+  Align: left
+  PostTypes: page post
+  SupportsAlign: left right
+  SupportsMode: true
+  SupportsMultiple: fields
+#}
+
+{% for imagetext in fields.text_with_image %}
+{% if imagetext.photo_align == 'right'  %}
+<section class="mpc-imagetext right section-spacing bg-white {{ block.className }}">
+	<article
+		class="container mx-auto flex flex-row-rverse flex-wrap justify-between overflow-hidden text-center md:text-left">
+		{% if imagetext.title or imagetext.subtitle or imagetext.content %}
+		<div
+			class="w-full {% if imagetext.content_font == 'header' %}font-body{% else %}font-button{% endif %} {% if imagetext.column_layout %}md:w-7/12{% else %}md:w-5/12{% endif %} {% if imagetext.align_content %}my-auto {% else %}md:mb-0 mb-8{% endif %}  ">
+			<h2 class="{% if imagetext.title_font == 'header' %}font-header{% else %}font-button{% endif %} text-4xl lg:text-5xl mb-4">{{ imagetext.title}}</h2>
+			{% if imagetext.subtitle %}
+			<h3 class="font-xl font-semibold mb-6">{{ imagetext.subtitle }}</h3>
+			{% endif %}
+			{% if imagetext.content %}
+			<div class="font-normal leading-relaxed">{{ imagetext.content }}</div>
+			{% endif %}
+			{% if imagetext.button %}
+			<a href="{{ imagetext.button.url}}"
+				class="btn btn-primary w-content inline-block tracking-wider font-medium text-center mb-4">{% if imagetext.icon.url %}<img
+					src="{{imagetext.icon.url}}" class="injectable inline-block fill-white h-6 w-6 mb-1 mr-2"
+					title="{{imagetext.icon.title}}" alt="{{ imagetext.icon.alt }}">{% endif %}<span
+					class='text-xl'>{{imagetext.button.title}}</span>
+			</a>
+			{% endif %}
+		</div>
+		{% endif %}
+		{% if imagetext.photo %}
+		<figure
+			class="w-full {% if imagetext.column_layout %}md:w-4/12{% else %}md:w-6/12{% endif %} image-wrap relative">
+			<img class='md:min-h-[450px] responsive-image rounded-2xl object-cover' src="{{imagetext.photo.url}}"
+				title="{{imagetext.photo.title }}" alt="{{imagetext.photo.alt}}" data-aos="fade-left"
+				data-aos-offset="150" data-aos-delay="250" data-aos-duration="250" data-aos-once="true">
+		</figure>
+		{% endif %}
+	</article>
+</section>
+{% endif %}
+{% if imagetext.photo_align == 'left' %}
+<section class="mpc-imagetext left section-spacing bg-white {{ block.className }}">
+	<article
+		class="container mx-auto flex flex-row-reverse flex-wrap justify-between overflow-hidden text-center md:text-left">
+		{% if imagetext.title or imagetext.content %}
+		<div
+			class="w-full {% if imagetext.column_layout %}md:w-7/12{% else %}md:w-5/12{% endif %} {% if imagetext.align_content %}my-auto {% else %}mb-8 md:mb-0{% endif %}">
+			<h2 class="font-header text-4xl lg:text-5xl mb-4">{{ imagetext.title}}</h2>
+			{% if imagetext.subtitle %}
+			<h3 class="font-xl font-semibold  mb-6">
+				{{ imagetext.subtitle }}</h3>
+			{% endif %}
+			<div class="font-normal leading-relaxed">{{ imagetext.content }}</div>
+			{% if imagetext.button %}
+			<a href="{{ imagetext.button.url}}"
+				class="btn btn-primary w-content inline-block tracking-wider font-medium text-center mb-4">{% if imagetext.icon.url %}<img
+					src="{{imagetext.icon.url}}" title="{{imagetext.icon.title}}" alt="{{ imagetext.icon.alt }}"
+					class="injectable inline-block fill-white h-6 w-6 mb-1 mr-2">{% endif %}<span
+					class='text-xl'>{{imagetext.button.title}}</span>
+			</a>
+			{% endif %}
+		</div>
+		{% endif %}
+		{% if imagetext.photo %}
+		<figure
+			class="w-full {% if imagetext.column_layout %}md:w-4/12{% else %}md:w-6/12{% endif %} image-wrap relative">
+			<img class='md:min-h-[450px] responsive-image rounded-2xl object-cover' src="{{imagetext.photo.url}}"
+				title="{{imagetext.photo.title }}" alt="{{imagetext.photo.alt}}" data-aos="fade-right"
+				data-aos-offset="150" data-aos-delay="250" data-aos-duration="250" data-aos-once="true">
+		</figure>
+		{% endif %}
+	</article>
+</section>
+{% endif %}
+{% endfor %}

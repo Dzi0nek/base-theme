@@ -1,0 +1,47 @@
+<div
+    class="mobile-icon-wrapper relative flex items-center h-14 w-16 justify-center {% if global.header_version == 'ver2' %}ml-auto{% endif %}">
+    <div class="mobile-icon"></div>
+</div>
+<div class="mobile-menu-wrap w-auto flex flex-col md:justify-around items-center ml-auto absolute z-20">
+    {# mobile icon #}
+
+    {# menu container #}
+    {% if menu %}
+    <nav class="nav relative mt-[4rem] md:mt-4 mb-8 mg:mb-0 pr-10 lg:mb-0">
+        <ul class="flex flex-col items-start">
+            {% for item in menu.items %}
+            <li
+                class="{{ item.classes | join(' ') }} flex flex-row items-center nav-item  whitespace-no-wrap text-xl md:text-lg mb-4">
+                {% if item.children %}
+                <a class="nav-link top-menu uppercase letter-spacing-1 relative" href="{{ item.link }}"
+                    target="{{ item.target }}"><span>{{ item.title }}</span></a><img
+                    src="{{ site.theme.link }}/images/icons/angle-right.svg" title="Arrow Right" alt="Arrow Right"
+                    class="injectable icon-dropdown w-4 h-4 fill-secondary ml-2 inline-block">
+                <ul class='drop-menu absolute top-0 -mt-1'>
+                    <li class="submenu-wrapper hover:cursor-pointer flex flex-row items-center relative mb-6">
+                        <img src="{{ site.theme.link }}/images/icons/angle-left.svg" title="Arrow Left" alt="Arrow Left"
+                            class="injectable w-4 h-4 menuback fill-secondary mr-2 inline-block"><span
+                            class="uppercase">{{ item.title }}</span></li>
+                    {% for child in item.children %}
+                    <li class="nav-drop-item text-xl md:text-xl mb-4">
+                        <a href="{{ child.link }}" target="{{ child.target }}">{{ child.title }}</a>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+                {% else %}
+                <a class="nav-link uppercase letter-spacing-1" href="{{ item.link }}"
+                    target="{{ item.target }}">{{ item.title }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+    <div class="menu-social flex flex-row mt-12 md:mt-6" role="region">
+        {% for social in global.global.social %}
+        <a href="{{ social.link.url}}"><img class="injectable h-8 mr-6" src="{{ social.icon.url }}"
+                alt="{{ social.icon.alt }}" title="social.icon.title"></a>
+        {% endfor %}
+    </div>
+</div>

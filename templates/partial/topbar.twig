@@ -1,0 +1,18 @@
+<section class="topbar` bg-secondary py-4" style="position:relative; display:block; z-index: 100;">
+	<div class="container mx-auto flex flex-row flex-wrap justify-between items-center py-4 md:py-0">
+		<div class="icons-wrap flex flex-row items-center mb-4 xs:mb-0 mx-auto xs:ml-0" role="region">
+			{% for icons in global.topbar.social_icons %}
+			<a href="{{ icons.link.url}}"
+				class="topbar-social-icons hover:fill-primary mr-2 fill-white flex items-center">
+				<img class="injectable w-7 h-5 object-contain fill-inherit" alt="{{ icons.icon.alt }}"
+					title="{{ icons.icon.title }}" src="{{icons.icon.url}}">
+			</a>
+			{% endfor %}
+		</div>
+		<a href="{{global.topbar.button.url}}" class="btn mx-auto xs:mr-0 {{global.topbar.button_version}}"><img
+				class="injectable inline-block w-10 h-6 object-contain fill-inherit"
+				src="{{ global.topbar.mobile_icon.url}}" title="{{ topbar.mobile_icon.title }}"
+				alt="{{ topbar.mobile_icon.alt }}"><span
+				class="hidden ml-2 md:inline-block">{{global.topbar.button.title }}</span></a>
+	</div>
+</section>
